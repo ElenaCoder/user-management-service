@@ -4,6 +4,7 @@ import {
     setSignedCookie,
   } from "https://deno.land/x/hono@v3.12.11/helper.ts";
   
+  const DAY_IN_MILLISECONDS = 86400000;
   const secret = "secret";
   
   const createSession = async (c, user) => {
@@ -13,7 +14,9 @@ import {
     });
   
     const kv = await Deno.openKv();
-    await kv.set(["sessions", sessionId], user);
+    await kv.set(["sessions", sessionId], user, {
+        expireIn: DAY_IN_MILLISECONDS,
+      });
   };
 
   const getUserFromSession = async (c) => {
@@ -25,6 +28,15 @@ import {
   
     const kv = await Deno.openKv();
     const user = await kv.get(["sessions", sessionId]);
+    const foundUser = user?.value ?? null;
+    if (!foundUser) {
+      return null;
+    }
+
+    await kv.set(["sessions", sessionId], foundUser, {
+      expireIn: DAY_IN_MILLISECONDS,
+    });
+
     return user?.value ?? null;
   };
 
