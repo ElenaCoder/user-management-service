@@ -4,6 +4,8 @@ import * as userService from "./userService.js";
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
+const showLoginForm = (c) => c.html(eta.render("login.eta"));
+
 const showRegistrationForm = (c) => c.html(eta.render("registration.eta"));
 
 const registerUser = async (c) => {
@@ -32,4 +34,4 @@ const registerUser = async (c) => {
     return c.text(JSON.stringify(body));
   };
 
-export { showRegistrationForm, registerUser };
+export { showRegistrationForm, registerUser, showLoginForm };
