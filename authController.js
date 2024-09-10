@@ -12,6 +12,12 @@ const registerUser = async (c) => {
         return c.text("The passwords you entered don’t match");
     }
 
+    // Confirming that the email provided is already registered
+    const existingUser = await userService.findUserByEmail(body.email);
+    if (existingUser) {
+      return c.text(`A user with the email ${body.email} already exists.`);
+    }
+
     return c.text(JSON.stringify(body));
   };
 
