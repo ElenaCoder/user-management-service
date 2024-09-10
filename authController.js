@@ -4,4 +4,9 @@ const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
 const showRegistrationForm = (c) => c.html(eta.render("registration.eta"));
 
-export { showRegistrationForm };
+const registerUser = async (c) => {
+    const body = await c.req.parseBody();
+    return c.text(JSON.stringify(body));
+  };
+
+export { showRegistrationForm, registerUser };

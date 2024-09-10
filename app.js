@@ -7,5 +7,6 @@ const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 const app = new Hono();
 
 app.get("/auth/registration", authController.showRegistrationForm);
+app.post("/auth/registration", authController.registerUser);
 
 Deno.serve(app.fetch);
