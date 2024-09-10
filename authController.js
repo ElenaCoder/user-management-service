@@ -6,6 +6,25 @@ const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
 const showLoginForm = (c) => c.html(eta.render("login.eta"));
 
+const loginUser = async (c) => {
+    const body = await c.req.parseBody();
+    console.log(body);
+
+    // Confirming that the user is in the system
+    const user = await userService.findUserByEmail(body.email);
+    if (!user) {
+      return c.text(`No user with the email ${body.email} exists in the system.`);
+    }
+
+    // Confirming that the entered password is correct.
+    const passwordsMatch = scrypt.verify(body.password, user.passwordHash);
+    if (!passwordsMatch) {
+      return c.text(`Invalid password`);
+    }
+
+    return c.text(JSON.stringify(body));
+};
+
 const showRegistrationForm = (c) => c.html(eta.render("registration.eta"));
 
 const registerUser = async (c) => {
@@ -34,4 +53,4 @@ const registerUser = async (c) => {
     return c.text(JSON.stringify(body));
   };
 
-export { showRegistrationForm, registerUser, showLoginForm };
+export { showLoginForm, loginUser , showRegistrationForm, registerUser };
