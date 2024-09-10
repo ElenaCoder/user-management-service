@@ -1,4 +1,6 @@
 import { Eta } from "https://deno.land/x/eta@v3.4.0/src/index.ts";
+import * as scrypt from "https://deno.land/x/scrypt@v4.3.4/mod.ts";
+import * as userService from "./userService.js";
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
@@ -17,6 +19,15 @@ const registerUser = async (c) => {
     if (existingUser) {
       return c.text(`A user with the email ${body.email} already exists.`);
     }
+
+    // Adding the user to the database
+    const user = {
+        id: crypto.randomUUID(),
+        email: body.email,
+        passwordHash: scrypt.hash(body.password),
+      };
+
+      await userService.createUser(user);
 
     return c.text(JSON.stringify(body));
   };
