@@ -5,6 +5,6 @@ const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
 const app = new Hono();
 
-app.get("/", (c) => c.text("Hello world!"));
+app.get("/auth/registration", (c) => c.html(eta.render("registration.eta")))
 
 Deno.serve(app.fetch);
