@@ -14,5 +14,17 @@ import {
     const kv = await Deno.openKv();
     await kv.set(["sessions", sessionId], user);
   };
+
+  const getUserFromSession = async (c) => {
+    const sessionId = await getSignedCookie(c, secret, "sessionId");
+    if (!sessionId) {
+      console.log("No such session.");
+      return null;
+    }
   
-  export { createSession };
+    const kv = await Deno.openKv();
+    const user = await kv.get(["sessions", sessionId]);
+    return user?.value ?? null;
+  };
+
+  export { createSession, getUserFromSession };
