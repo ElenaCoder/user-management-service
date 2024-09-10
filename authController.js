@@ -25,7 +25,7 @@ const loginUser = async (c) => {
 
     await sessionService.createSession(c, user);
 
-    return c.text(JSON.stringify(body));
+    return c.redirect("/");
 };
 
 const showRegistrationForm = (c) => c.html(eta.render("registration.eta"));
@@ -54,7 +54,7 @@ const registerUser = async (c) => {
       await userService.createUser(user);
       await sessionService.createSession(c, user);
 
-    return c.text(JSON.stringify(body));
+      return c.redirect("/");
   };
 
 export { showLoginForm, loginUser , showRegistrationForm, registerUser };
