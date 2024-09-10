@@ -52,6 +52,7 @@ const registerUser = async (c) => {
       };
 
       await userService.createUser(user);
+      await sessionService.createSession(c, user);
 
     return c.text(JSON.stringify(body));
   };
