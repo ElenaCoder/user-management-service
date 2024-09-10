@@ -17,7 +17,7 @@ const registerUser = async (c) => {
     // Confirming that the email provided is already registered
     const existingUser = await userService.findUserByEmail(body.email);
     if (existingUser) {
-      return c.text(`A user with the email ${body.email} already exists.`);
+      return c.text(`A user with the email ${body.email} already exists in the system.`);
     }
 
     // Adding the user to the database
