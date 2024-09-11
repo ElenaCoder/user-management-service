@@ -1,9 +1,15 @@
 import { Eta } from "https://deno.land/x/eta@v3.4.0/src/index.ts";
 import * as scrypt from "https://deno.land/x/scrypt@v4.3.4/mod.ts";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 import * as userService from "./userService.js";
 import * as sessionService from "./sessionService.js";
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
+
+const validator = z.object({
+    email: z.string().trim().email({ message: "Please provide a valid email address." }),
+    password: z.string().min(6, { message: "Password must be at least 6 characters long." }),
+});
 
 const showLoginForm = (c) => c.html(eta.render("login.eta"));
 
@@ -32,6 +38,16 @@ const showRegistrationForm = (c) => c.html(eta.render("registration.eta"));
 
 const registerUser = async (c) => {
     const body = await c.req.parseBody();
+
+    const validationResult = validator.safeParse(body);
+
+    if (!validationResult.success) {
+        const errors = validationResult.error.format();
+        return c.html(eta.render("registration.eta", {
+            ...body,
+            errors,
+        }));
+      }
 
     // Confirming that the two passwords match
     if (body.password !== body.verification) {
