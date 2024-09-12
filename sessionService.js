@@ -1,9 +1,5 @@
-import {
-    deleteCookie,
-    getSignedCookie,
-    setSignedCookie,
-  } from "https://deno.land/x/hono@v3.12.11/helper.ts";
-  
+  import { deleteCookie, getSignedCookie, setSignedCookie } from "./deps.js";
+
   const DAY_IN_MILLISECONDS = 86400000;
   const secret = "secret";
   

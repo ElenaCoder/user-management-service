@@ -1,4 +1,5 @@
-import { Eta } from "https://deno.land/x/eta@v3.4.0/src/index.ts";
+import { Eta } from "./deps.js";
+
 import * as sessionService from "./sessionService.js";
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
