@@ -1,6 +1,6 @@
-import { Eta } from "./deps.js";
+import { Eta } from "../deps.js";
 
-import * as sessionService from "./sessionService.js";
+import * as sessionService from "../services/sessionService.js";
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 

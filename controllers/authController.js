@@ -1,9 +1,9 @@
-import { Eta } from "./deps.js";
-import { scrypt } from "./deps.js";
-import { z } from "./deps.js";
+import { Eta } from "../deps.js";
+import { scrypt } from "../deps.js";
+import { z } from "../deps.js";
 
-import * as userService from "./userService.js";
-import * as sessionService from "./sessionService.js";
+import * as userService from "../services/userService.js";
+import * as sessionService from "../services/sessionService.js";
 
 const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
