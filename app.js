@@ -1,7 +1,7 @@
 import {Hono} from "./deps.js";
 
-import * as authController from './authController.js';
-import * as mainController from "./mainController.js";
+import * as authController from './controllers/authController.js';
+import * as mainController from "./controllers/mainController.js";
 
 const app = new Hono();
 
