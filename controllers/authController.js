@@ -1,11 +1,9 @@
-import { Eta } from "../deps.js";
+import { eta } from "../config/etaConfig.js";
 import { scrypt } from "../deps.js";
 import { z } from "../deps.js";
 
 import * as userService from "../services/userService.js";
 import * as sessionService from "../services/sessionService.js";
-
-const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
 const validator = z.object({
     email: z.string().trim().email({ message: "Please provide a valid email address." }),

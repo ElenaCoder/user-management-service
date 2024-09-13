@@ -1,8 +1,6 @@
-import { Eta } from "../deps.js";
+import { eta } from "../config/etaConfig.js";
 
 import * as sessionService from "../services/sessionService.js";
-
-const eta = new Eta({ views: `${Deno.cwd()}/templates/` });
 
 const showMain = async (c) => {
     return c.html(eta.render("main.eta", {
