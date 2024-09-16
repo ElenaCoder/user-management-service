@@ -1,0 +1,10 @@
+{
+  "deploy": {
+    "project": "d167bde8-3cb3-4f5b-85ef-bfd5960e052d",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "app.js"
+  }
+}
