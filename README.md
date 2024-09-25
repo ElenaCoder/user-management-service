@@ -48,7 +48,7 @@ The deployment is done using Deno deployment, which provides free hosting for st
 ├── middlewares
 │   ├── middlewares.css
 ├── services
-│   ├── sessionService.js
+│   ├──sessionService.js
 │   └──userService.js
 ├── templates
 │   ├── partials
